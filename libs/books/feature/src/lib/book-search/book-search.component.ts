@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   addToReadingList,
@@ -17,7 +17,7 @@ import { debounceTime } from 'rxjs/operators';
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.scss']
 })
-export class BookSearchComponent implements OnInit {
+export class BookSearchComponent implements OnInit, OnDestroy {
   books: ReadingListBook[];
 
   searchForm = this.fb.group({
@@ -69,6 +69,12 @@ export class BookSearchComponent implements OnInit {
       this.store.dispatch(searchBooks({ term: this.searchTerm }));
     } else {
       this.store.dispatch(clearSearch());
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.instantSearchSubscription) {
+      this.instantSearchSubscription.unsubscribe();
     }
   }
 }
