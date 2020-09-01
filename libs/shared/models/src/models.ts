@@ -8,6 +8,12 @@ export interface Book {
   coverUrl?: string;
 }
 
+export interface GoogleBookItem {
+  id: string;
+  volumeInfo?: any;
+  searchInfo?: any;
+}
+
 export interface ReadingListItem extends Omit<Book, 'id'> {
   bookId: string;
   finished?: boolean;

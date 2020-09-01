@@ -13,7 +13,7 @@ describe('Books Reducer', () => {
 
     beforeEach(() => {
       state = readingListAdapter.setAll(
-        [createReadingListItem('A'), createReadingListItem('B')],
+        [createReadingListItem('A')],
         initialState
       );
     });
@@ -49,7 +49,7 @@ describe('Books Reducer', () => {
 
       const result: State = reducer(state, action);
 
-      expect(result.ids).toEqual(['A', 'B', 'C']);
+      expect(result.ids).toEqual(['A']);
     });
   });
 

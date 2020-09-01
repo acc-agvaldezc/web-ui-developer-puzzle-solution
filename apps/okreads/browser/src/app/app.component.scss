@@ -20,6 +20,10 @@ h1 {
 
   button {
     padding: 0 $spacing-xs;
+
+    &.reading-list-toggler {
+      background-color: $gray80;
+    }
   }
 }
 
