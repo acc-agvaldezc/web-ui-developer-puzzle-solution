@@ -50,9 +50,21 @@ const readingListReducer = createReducer(
   on(ReadingListActions.addToReadingList, (state, action) =>
     readingListAdapter.addOne({ bookId: action.book.id, ...action.book }, state)
   ),
+  on(ReadingListActions.failedAddToReadingList, (state, action) => {
+    return {
+      ...state,
+      error: `Failed to add ${action.book.title} to reading list.`
+    }
+  }),
   on(ReadingListActions.removeFromReadingList, (state, action) =>
     readingListAdapter.removeOne(action.item.bookId, state)
-  )
+  ),
+  on(ReadingListActions.failedRemoveFromReadingList, (state, action) => {
+    return {
+      ...state,
+      error: `Failed to remove ${action.item.title} from reading list.`
+    }
+  })
 );
 
 export function reducer(state: State | undefined, action: Action) {
