@@ -28,7 +28,7 @@ export class ReadingListEffects implements OnInitEffects {
 
   addBook$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ReadingListActions.addToReadingList),
+      ofType(ReadingListActions.addToReadingList, ReadingListActions.undoRemoveFromReadingList),
       concatMap(({ book }) =>
         this.http.post('/api/reading-list', book).pipe(
           map(() => ReadingListActions.confirmedAddToReadingList({ book })),
@@ -40,9 +40,25 @@ export class ReadingListEffects implements OnInitEffects {
     )
   );
 
+  // undoAddBook$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(ReadingListActions.undoAddToReadingList),
+  //     concatMap(({ item }) =>
+  //       this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
+  //         map(() =>
+  //           ReadingListActions.confirmedRemoveFromReadingList({ item })
+  //         ),
+  //         catchError(() =>
+  //           of(ReadingListActions.failedRemoveFromReadingList({ item }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
+
   removeBook$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ReadingListActions.removeFromReadingList),
+      ofType(ReadingListActions.removeFromReadingList, ReadingListActions.undoAddToReadingList),
       concatMap(({ item }) =>
         this.http.delete(`/api/reading-list/${item.bookId}`).pipe(
           map(() =>
@@ -55,6 +71,20 @@ export class ReadingListEffects implements OnInitEffects {
       )
     )
   );
+
+  // undoRemoveBook$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(ReadingListActions.undoRemoveFromReadingList),
+  //     concatMap(({ book }) =>
+  //       this.http.post('/api/reading-list', book).pipe(
+  //         map(() => ReadingListActions.confirmedAddToReadingList({ book })),
+  //         catchError(() =>
+  //           of(ReadingListActions.failedAddToReadingList({ book }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 
   ngrxOnInitEffects() {
     return ReadingListActions.init();

@@ -1,0 +1,14 @@
+<div class="mat-simple-snackbar" *ngIf="readingListPreviousAction$ | async as readingListPreviousAction">
+    <ng-container *ngIf="readingListPreviousAction.previousAction === 'ADD'">
+        <span>{{ readingListPreviousAction.previousActionData.title }} was added to your reading list!</span>
+        <div class="mat-simple-snackbar-action">
+            <button data-testing="undo-add" mat-button class="mat-snackbar-action" (click)="undoAddedBookToReadingList(readingListPreviousAction.previousActionData)">UNDO</button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="readingListPreviousAction.previousAction === 'REMOVE'">
+        <span>{{ readingListPreviousAction.previousActionData.title }} was removed from your reading list!</span>
+        <div class="mat-simple-snackbar-action">
+            <button mat-button data-testing="undo-remove" class="mat-snackbar-action" (click)="undoRemovedBookToReadingList(readingListPreviousAction.previousActionData)">UNDO</button>
+        </div>
+    </ng-container>
+</div>
