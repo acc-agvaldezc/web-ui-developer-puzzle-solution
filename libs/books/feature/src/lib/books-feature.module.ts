@@ -11,11 +11,13 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TotalCountComponent } from './total-count/total-count.component';
 import { ReadingListComponent } from './reading-list/reading-list.component';
+import { UndoReadingListActionsComponent } from './undo-reading-list-actions/undo-reading-list-actions.component';
 
 const EXPORTS = [
   BookSearchComponent,
   TotalCountComponent,
-  ReadingListComponent
+  ReadingListComponent,
+  UndoReadingListActionsComponent
 ];
 
 @NgModule({

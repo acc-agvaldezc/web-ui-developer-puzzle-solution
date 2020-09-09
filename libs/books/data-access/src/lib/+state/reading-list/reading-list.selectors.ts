@@ -29,6 +29,11 @@ export interface ReadingListBook extends Book, Omit<ReadingListItem, 'bookId'> {
   isAdded: boolean;
 }
 
+export const getReadingListPreviousOperation = createSelector(
+  getReadingListState,
+  (state: State) => ({previousAction: state.previousAction, previousActionData: state.previousActionData})
+);
+
 export const getAllBooks = createSelector<
   BooksPartialState & ReadingListPartialState,
   Book[],
