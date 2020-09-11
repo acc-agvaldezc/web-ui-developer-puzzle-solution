@@ -13,11 +13,29 @@
   justify-content: center;
   margin-bottom: $spacing-xs;
   width: 100%;
+  background-color: $white;
+  color: $black;
+  animation: markAsNotFinished 300ms;
 
   > * {
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  &.finished {
+    animation: markAsFinished 300ms;
+    background-color: darkseagreen;
+  }
+
+  @keyframes markAsFinished {
+    from { background-color: $white; }
+    to { background-color: darkseagreen; }
+  }
+
+  @keyframes markAsNotFinished {
+    from { background-color: darkseagreen; }
+    to { background-color: $white; }
   }
 }
 

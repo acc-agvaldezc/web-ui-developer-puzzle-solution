@@ -17,6 +17,8 @@ export class ReadingListService {
       const { id, ...rest } = b;
       list.push({
         bookId: id,
+        finished: false,
+        finishedDate: null,
         ...rest
       });
       return list;
@@ -26,6 +28,19 @@ export class ReadingListService {
   async removeBook(id: string): Promise<void> {
     this.storage.update(list => {
       return list.filter(x => x.bookId !== id);
+    });
+  }
+
+  async toggleFinishedStatus(id: string, update: ReadingListItem) {
+    this.storage.update(list => {
+      const index = list.findIndex((item: ReadingListItem) => item.bookId === id);
+
+      if (index !== -1) {
+        list[index].finished = update.finished;
+        list[index].finishedDate = update.finishedDate;
+      }
+
+      return list;
     });
   }
 }

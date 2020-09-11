@@ -36,8 +36,10 @@
               color="primary"
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
+              data-testing="add-book-to-reading-list"
+              id="{{ b.id }}"
             >
-              Want to Read
+              {{ (b.finished) ? 'Finished' : 'Want to read' }}
             </button>
           </div>
         </div>
