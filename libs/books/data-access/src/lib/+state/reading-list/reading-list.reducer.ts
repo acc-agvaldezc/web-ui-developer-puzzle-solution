@@ -48,7 +48,7 @@ const readingListReducer = createReducer(
     };
   }),
   on(ReadingListActions.addToReadingList, (state, action) =>
-    readingListAdapter.addOne({ bookId: action.book.id, ...action.book }, state)
+    readingListAdapter.addOne({ bookId: action.book.id, finished: false, finishedDate: null, ...action.book }, state)
   ),
   on(ReadingListActions.failedAddToReadingList, (state, action) => {
     return {
@@ -64,7 +64,10 @@ const readingListReducer = createReducer(
       ...state,
       error: `Failed to remove ${action.item.title} from reading list.`
     }
-  })
+  }),
+  on(ReadingListActions.toggleFinishedBookOnReadingList, (state, action) => 
+    readingListAdapter.updateOne(action.update, state)
+  )
 );
 
 export function reducer(state: State | undefined, action: Action) {
